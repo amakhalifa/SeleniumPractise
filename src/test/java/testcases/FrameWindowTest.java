@@ -1,9 +1,11 @@
 package testcases;
 
 import base.Testbase;
+import org.apache.hc.core5.reactor.Command;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.thread.IThreadWorkerFactory;
 import pages.FrameWindowPage;
 import pages.HomePage;
 import pages.LoginPage;
@@ -28,7 +30,7 @@ public class FrameWindowTest extends Testbase {
         framewindow = homePage.clickOnFrameWindLink();
     }
 
-    @Test
+    @Test(enabled = false)
     public void frameTest1() {
         switchToActionFrame();
         framewindow.clickNewBrowserTab();
@@ -41,6 +43,30 @@ public class FrameWindowTest extends Testbase {
         Assert.assertEquals(getWindowTitle(), "jQuery UI Datepicker - Default functionality");
         driver.switchTo().window(pWindow);
         Assert.assertEquals(getWindowTitle(),  "Welcome");
+    }
+
+    @Test
+    public void frameTest2() {
+        switchToMainWindow();
+        framewindow.openSeprateNewWindow();
+        framewindow.switchToSeprateNewWindowFrame();
+        framewindow.clickSeprateNewWindowBtn();
+
+        Set<String> wHandles = driver.getWindowHandles();
+        Iterator<String> i = wHandles.iterator();
+
+        String pWindow = i.next();
+        String cWindow = i.next();
+
+        driver.switchTo().window(cWindow);
+        Assert.assertEquals(getWindowTitle(), "Open New Seprate Window");
+        driver.switchTo().window(pWindow);
+        Assert.assertEquals(getWindowTitle(),  "Welcome");
+
+    }
+
+    public void tearDown() {
+        quitBrowser();
     }
 
 
