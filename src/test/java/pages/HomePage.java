@@ -16,6 +16,9 @@ public class HomePage extends Testbase {
     @FindBy(css = "div.row > div:nth-child(3) > ul > li:nth-child(1) > a")
     WebElement frameWindowBtn;
 
+    @FindBy(css = "div.row > div:nth-child(4) > ul > li:nth-child(1) > a")
+    WebElement dynamicElementBtn;
+
     public HomePage() {
         PageFactory.initElements(driver, this);
     }
@@ -36,5 +39,11 @@ public class HomePage extends Testbase {
         waitForElementToBeClickable(frameWindowBtn, 10);
         frameWindowBtn.click();
         return new FrameWindowPage();
+    }
+
+    public DynamicElementsPage clickOnDynamicElementsLink() {
+        waitForElementToBeClickable(dynamicElementBtn, 10);
+        dynamicElementBtn.click();
+        return new DynamicElementsPage();
     }
 }
