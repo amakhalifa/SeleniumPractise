@@ -13,8 +13,11 @@ public class FrameWindowPage extends Testbase {
     @FindBy(css = "div.internal_navi > ul > li:nth-child(2) > a")
     WebElement openSeprateNewWindow;
 
+    @FindBy(css = "div.internal_navi > ul > li:nth-child(3) > a")
+    WebElement openFrameSet;
+
     @FindBy(css = "div p > a")
-    WebElement openSeprateNewWindowBtn;
+    WebElement openFrameBtn;
 
 
     public FrameWindowPage() {
@@ -25,18 +28,28 @@ public class FrameWindowPage extends Testbase {
         newBrowserTab.click();
     }
 
+    public void clickFrameSetTab() {
+        openFrameSet.click();
+    }
+
+
     public void openSeprateNewWindow() {
         openSeprateNewWindow.click();
     }
 
-    public void clickSeprateNewWindowBtn() {
-        waitForElementToBeClickable(openSeprateNewWindowBtn, 10);
-        openSeprateNewWindowBtn.click();
+    public void cpenFrameBtn() {
+        waitForElementToBeClickable(openFrameBtn, 10);
+        openFrameBtn.click();
     }
 
     public void switchToSeprateNewWindowFrame() {
         driver.switchTo().frame(1);
     }
+
+    public void switchToFrameSetFrame() {
+        driver.switchTo().frame(2);
+    }
+
 
 
 

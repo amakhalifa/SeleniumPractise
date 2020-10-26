@@ -2,7 +2,9 @@ package testcases;
 
 import base.Testbase;
 import org.apache.hc.core5.reactor.Command;
+import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.thread.IThreadWorkerFactory;
@@ -30,7 +32,7 @@ public class FrameWindowTest extends Testbase {
         framewindow = homePage.clickOnFrameWindLink();
     }
 
-    @Test(enabled = false)
+    @Test(priority = 1, enabled = false)
     public void frameTest1() {
         switchToActionFrame();
         framewindow.clickNewBrowserTab();
@@ -45,12 +47,12 @@ public class FrameWindowTest extends Testbase {
         Assert.assertEquals(getWindowTitle(),  "Welcome");
     }
 
-    @Test
+    @Test(priority = 2, enabled = false)
     public void frameTest2() {
         switchToMainWindow();
         framewindow.openSeprateNewWindow();
         framewindow.switchToSeprateNewWindowFrame();
-        framewindow.clickSeprateNewWindowBtn();
+        framewindow.cpenFrameBtn();
 
         Set<String> wHandles = driver.getWindowHandles();
         Iterator<String> i = wHandles.iterator();
@@ -65,6 +67,34 @@ public class FrameWindowTest extends Testbase {
 
     }
 
+    @Test(priority = 3)
+    public void frameTest3() {
+        switchToMainWindow();
+        framewindow.clickFrameSetTab();
+        framewindow.switchToFrameSetFrame();
+        framewindow.cpenFrameBtn();
+
+        Set<String> wHandles = driver.getWindowHandles();
+        Iterator<String> i = wHandles.iterator();
+
+        String pWindow = i.next();
+        String cWindow = i.next();
+
+
+        driver.switchTo().window(pWindow);
+        Assert.assertEquals(getWindowTitle(),  "Welcome");
+        driver.switchTo().window(cWindow);
+        Assert.assertEquals(getWindowTitle(), "HTML Frames - Example 1");
+
+        driver.switchTo().frame("topFrame");
+        String backgroundColor = driver.findElement(By.tagName("body")).getCssValue("background-color");
+        Assert.assertEquals(backgroundColor, "rgba(151, 163, 193, 1)");
+
+    }
+
+
+
+    @AfterMethod
     public void tearDown() {
         quitBrowser();
     }
