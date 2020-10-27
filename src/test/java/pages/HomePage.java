@@ -19,6 +19,9 @@ public class HomePage extends Testbase {
     @FindBy(css = "div.row > div:nth-child(4) > ul > li:nth-child(1) > a")
     WebElement dynamicElementBtn;
 
+    @FindBy(css = "div.row > div:nth-child(4) > ul > li:nth-child(2) > a")
+    WebElement dropDownBtn;
+
     public HomePage() {
         PageFactory.initElements(driver, this);
     }
@@ -41,9 +44,15 @@ public class HomePage extends Testbase {
         return new FrameWindowPage();
     }
 
-    public DynamicElementsPage clickOnDynamicElementsLink() {
+    public DynamicElementsPage clickOnDynamicElementsLink(){
         waitForElementToBeClickable(dynamicElementBtn, 10);
         dynamicElementBtn.click();
         return new DynamicElementsPage();
+    }
+
+    public DropDownPage clickOnDropDownLink() {
+        waitForElementToBeClickable(dropDownBtn, 10);
+        dropDownBtn.click();
+        return new DropDownPage();
     }
 }
