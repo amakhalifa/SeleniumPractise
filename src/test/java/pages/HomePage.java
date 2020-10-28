@@ -22,6 +22,9 @@ public class HomePage extends Testbase {
     @FindBy(css = "div.row > div:nth-child(4) > ul > li:nth-child(2) > a")
     WebElement dropDownBtn;
 
+    @FindBy(css = "div.row > div:nth-child(5) > ul > li > a")
+    WebElement registrationBtn;
+
     public HomePage() {
         PageFactory.initElements(driver, this);
     }
@@ -54,5 +57,11 @@ public class HomePage extends Testbase {
         waitForElementToBeClickable(dropDownBtn, 10);
         dropDownBtn.click();
         return new DropDownPage();
+    }
+
+    public RegistrationPage clickOnRegistrationLink() {
+        waitForElementToBeClickable(registrationBtn, 10);
+        registrationBtn.click();
+        return new RegistrationPage();
     }
 }
